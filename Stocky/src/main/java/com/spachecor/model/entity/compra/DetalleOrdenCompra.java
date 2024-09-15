@@ -1,0 +1,62 @@
+package com.spachecor.model.entity.compra;
+
+import com.spachecor.model.entity.Entidad;
+import com.spachecor.model.entity.inventario.Producto;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "detalleOrdenCompra")
+public class DetalleOrdenCompra extends Entidad {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_detalle_orden_compra")
+    private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "id_orden_compra")
+    private OrdenCompra ordenCompra;
+    @ManyToOne
+    @JoinColumn(name = "id_producto")
+    private Producto producto;
+    private Double cantidad;
+
+    public DetalleOrdenCompra() {}
+
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "DetalleOrdenCompra{" +
+                "id=" + id +
+                ", ordenCompra=" + ordenCompra +
+                ", producto=" + producto +
+                ", cantidad=" + cantidad +
+                '}';
+    }
+
+    public OrdenCompra getOrdenCompra() {
+        return ordenCompra;
+    }
+
+    public void setOrdenCompra(OrdenCompra ordenCompra) {
+        this.ordenCompra = ordenCompra;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Double getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Double cantidad) {
+        this.cantidad = cantidad;
+    }
+}
