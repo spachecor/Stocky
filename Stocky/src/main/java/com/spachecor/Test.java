@@ -1,11 +1,10 @@
 package com.spachecor;
 
+import com.spachecor.model.entity.compra.DetalleEntradaMercancia;
 import com.spachecor.model.entity.compra.DetalleOrdenCompra;
+import com.spachecor.model.entity.compra.EntradaMercancia;
 import com.spachecor.model.entity.compra.OrdenCompra;
-import com.spachecor.model.entity.inventario.Categoria;
-import com.spachecor.model.entity.inventario.Producto;
-import com.spachecor.model.entity.inventario.Subcategoria;
-import com.spachecor.model.entity.inventario.UnidadMedida;
+import com.spachecor.model.entity.inventario.*;
 import com.spachecor.model.entity.personas.Proveedor;
 import com.spachecor.model.services.repository.GenericRepositoryServiceImpl;
 import com.spachecor.model.util.JpaUtil;
@@ -75,6 +74,29 @@ public class Test {
         detalleOrdenCompraUno.setProducto(manzanaGolden);
         detalleOrdenCompraUno.setCantidad(75D);
         detalleOrdenCompraGenericRepository.guardar(detalleOrdenCompraUno);
+
+        Lote lote = new Lote();
+        lote.setProducto(manzanaGolden);
+        lote.setPrecioUnitarioCompra(0.75D);
+        lote.setFechaEntrada(LocalDate.now());
+        lote.setFechaCaducidad(LocalDate.now().plusWeeks(4));
+        lote.setCantidadInicial(75D);
+        lote.setCantidadActual(75D);
+
+        Transaccion transaccion = new Transaccion();
+        transaccion.setLote(lote);
+        transaccion.setFechaTransaccion(LocalDateTime.now());
+        transaccion.setCantidad(1D);
+        transaccion.setTipoTransaccion("entrada");
+
+        EntradaMercancia entradaMercancia = new EntradaMercancia();
+        entradaMercancia.setOrdenCompra(ordenCompra);
+        entradaMercancia.setFechaEntrada(LocalDateTime.now());
+
+        DetalleEntradaMercancia detalleEntradaMercancia = new DetalleEntradaMercancia();
+        detalleEntradaMercancia.setEntradaMercancia(entradaMercancia);
+        detalleEntradaMercancia.setTransaccion(transaccion);
+        //todo terminar ejemplo con la entrada de mercancia
 
         System.out.println(detalleOrdenCompraGenericRepository.listar());
         System.out.println(ordenCompraGenericRepositoryService.listar());

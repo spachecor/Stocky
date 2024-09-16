@@ -78,7 +78,6 @@ create table producto(
 
 create table lote(
 	id_lote int auto_increment,
-    id_proveedor int not null,
     id_producto int not null,
     cantidad_inicial decimal(10,2) not null,/*cantidad inicial de productos contenidos en el lote recibido*/
     cantidad_actual decimal(10,2) not null,
@@ -86,8 +85,7 @@ create table lote(
     fecha_caducidad date,
     precio_compra_unitario decimal(10,2) not null,/*Precio al que se adquirió el producto del proveedor. Unitario, por cada unidad*/
     constraint lote_id_lote_pk primary key (id_lote),
-    constraint lote_id_producto_fk foreign key (id_producto) references producto (id_producto),
-    constraint lote_id_proveedor_fk foreign key (id_proveedor) references proveedor (id_proveedor)
+    constraint lote_id_producto_fk foreign key (id_producto) references producto (id_producto)
 );
 
 create table ubicacion(
@@ -114,7 +112,7 @@ create table inventario(
 create table transaccion(
 	id_transaccion int auto_increment,
     tipo_transaccion enum('entrada', 'salida') not null,
-    cantidad decimal(10,2) not null,/*cantidad de unidades que salen del lote*/
+    cantidad decimal(10,2) not null,/*cantidad de lotes*/
     fecha_transaccion timestamp default current_timestamp not null,
     id_lote int not null,
     descripcion text,
@@ -167,12 +165,10 @@ create table entradaMercancia (
 create table detalleEntradaMercancia (
     id_detalle_entrada_mercancia int auto_increment,
     id_entrada_mercancia int not null,
-    id_producto int not null,
-    id_transaccion int not null,-- id que registra la transacción a la que va vinculada la entrada de esta mercancia
-    cantidad_recibida int not null,
+    id_transaccion int not null,-- id que registra la transacción a la que va vinculada la entrada de esta mercancia, se toma el lote que entra de la transaccion, 
+    -- que será un nuevo lote que coincidirá con el producto solicitado en la orden de compra
     constraint detalleEntradaMercancia_id_detalle_entrada_mercancia_pk primary key (id_detalle_entrada_mercancia),
     constraint detalleEntradaMercancia_id_entrada_mercancia_fk foreign key (id_entrada_mercancia) references entradaMercancia (id_entrada_mercancia) on delete cascade on update cascade,
-    constraint detalleEntradaMercancia_id_producto_fk foreign key (id_producto) references producto (id_producto) on delete restrict on update cascade,
     constraint detalleEntradaMercancia_id_transaccion_fk foreign key (id_transaccion) references transaccion (id_transaccion) on delete restrict on update cascade
 );
 

@@ -15,9 +15,6 @@ public class Lote extends Entidad{
     @ManyToOne
     @JoinColumn(name = "id_producto")
     private Producto producto;
-    @ManyToOne
-    @JoinColumn(name = "id_proveedor")
-    private Proveedor proveedor;
     @Column(name = "cantidad_inicial")
     private Double cantidadInicial;
     @Column(name = "cantidad_actual")
@@ -42,7 +39,6 @@ public class Lote extends Entidad{
         return "Lote{" +
                 "id=" + id +
                 ", producto=" + producto +
-                ", proveedor=" + proveedor +
                 ", cantidadInicial=" + cantidadInicial +
                 ", cantidadActual=" + cantidadActual +
                 ", fechaEntrada=" + fechaEntrada +
@@ -57,14 +53,6 @@ public class Lote extends Entidad{
 
     public void setProducto(Producto producto) {
         this.producto = producto;
-    }
-
-    public Proveedor getProveedor() {
-        return proveedor;
-    }
-
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
     }
 
     public Double getCantidadInicial() {
