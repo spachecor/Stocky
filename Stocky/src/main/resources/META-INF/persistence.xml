@@ -16,6 +16,9 @@
         <class>com.spachecor.model.entity.usuarios.Rol</class>
         <class>com.spachecor.model.entity.compra.DetalleOrdenCompra</class>
         <class>com.spachecor.model.entity.compra.OrdenCompra</class>
+        <class>com.spachecor.model.entity.compra.EntradaMercancia</class>
+        <class>com.spachecor.model.entity.compra.DetalleEntradaMercancia</class>
+        <class>com.spachecor.model.entity.personas.Cliente</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/stocky?serverTimezone=Europe/Madrid"/>

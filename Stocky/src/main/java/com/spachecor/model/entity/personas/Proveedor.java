@@ -15,11 +15,6 @@ public class Proveedor extends Persona{
     public Proveedor() {}
 
     @Override
-    public Integer getId() {
-        return this.id;
-    }
-
-    @Override
     public String toString() {
         return "Proveedor{" +
                 "id=" + id +
@@ -28,8 +23,9 @@ public class Proveedor extends Persona{
                 '}';
     }
 
-    public Integer getIdPersona(){
-        return super.getId();
+    @Override
+    public Integer getId(){
+        return this.id;
     }
 
     public String getNombreEmpresa() {

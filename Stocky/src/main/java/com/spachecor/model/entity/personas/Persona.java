@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "persona")
-public class Persona extends Entidad{
+public abstract class Persona extends Entidad{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_persona")
@@ -22,11 +22,6 @@ public class Persona extends Entidad{
     public Persona() {}
 
     @Override
-    public Integer getId() {
-        return this.id;
-    }
-
-    @Override
     public String toString() {
         return "Persona{" +
                 "id=" + id +
@@ -37,6 +32,10 @@ public class Persona extends Entidad{
                 ", contactoPrincipal='" + contactoPrincipal + '\'' +
                 ", activo=" + activo +
                 '}';
+    }
+
+    public Integer getIdPersona(){
+        return this.id;
     }
 
     public String getNombre() {
