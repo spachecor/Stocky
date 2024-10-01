@@ -187,53 +187,19 @@ create table cliente(
     constraint cliente_id_cliente_pk primary key (id_cliente),
     constraint cliente_id_persona_fk foreign key (id_persona) references persona (id_persona)
 );
-
-/*Tablas venta, consumo y servicio son tablas de históricos, donde se guarda:
-	- Venta: Ventas realizadas, con la cantidad del producto tipo venta vendido, el precio real de venta y la descripción de la venta
-    - Consumo: Consumo realizado, con la cantidad de productos tipo consumo consumidos por la empresa y la descripcion del consumo
-    - Servicio: Servicio realizado, con la cantidad de productos tipo servicio(horas realizadas) y el precio de cada uno
-    
-ej. insercion en tabla servicio:
-	1º- insert into producto(nombre, descripcion, tipo_producto, id_categoria, id_subcategoria, id_unidad_medida, precio_unitario)
-		values ("Reparación de electodomésticos a domicilio", "Servicio de reparación de electrodomésticos a domicilio", "servicio", 1, 1, 1, 50.00);
-	2º- insert into servicio(id_producto, descripcion_servicio, precio_servicio, duracion_estimada)
-		values (1, "Reparacion de electrodomesticos en domicilio X", 50.00, 6);*/
         
 create table venta(
 	id_venta int auto_increment,
-    id_producto int not null,
+    id_lote int not null,
     cantidad int not null,
     fecha_venta timestamp default current_timestamp not null,
     precio_venta_unitario decimal(10,2) not null,
     id_cliente int not null,
+    tipo enum('venta', 'servicio', 'consumo') default 'venta' not null,
     descripcion text,
     constraint venta_id_venta_pk primary key (id_venta),
-    constraint venta_id_producto_fk foreign key (id_producto) references producto (id_producto) on delete restrict on update cascade,
+    constraint venta_id_lote_fk foreign key (id_lote) references lote (id_lote) on delete restrict on update cascade,
     constraint venta_id_cliente_fk foreign key (id_cliente) references cliente (id_cliente) on delete restrict on update cascade
-);
-
-create table servicio(
-	id_servicio int auto_increment,
-    id_producto int not null,
-    id_cliente int not null,
-    descripcion_servicio text,
-    precio_servicio decimal(10, 2) not null,
-    duracion_estimada time not null,/*duracion_estimada int;-- horas*/
-    fecha_creacion timestamp default current_timestamp not null,
-    fecha_actualizacion timestamp default current_timestamp on update current_timestamp not null,
-    constraint servicio_id_servicio_pk primary key (id_servicio),
-    constraint servicio_id_producto_fk foreign key (id_producto) references producto (id_producto) on delete restrict on update cascade,
-    constraint servicio_id_cliente_fk foreign key (id_cliente) references cliente (id_cliente) on delete restrict on update cascade
-);
-
-create table consumo(
-	id_consumo int auto_increment,
-    id_producto int not null,
-    cantidad int not null,
-    fecha_consumo timestamp default current_timestamp not null,
-    descripcion text,
-    constraint consumo_id_consumo_pk primary key (id_consumo),
-    constraint consumo_id_producto_fk foreign key (id_producto) references producto (id_producto) on delete restrict on update cascade
 );
 
 -- SECCION TICKET - FACTURA
