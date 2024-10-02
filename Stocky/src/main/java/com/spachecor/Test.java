@@ -34,7 +34,7 @@ public class Test {
         Subcategoria manzana = new Subcategoria();
         manzana.setNombre("Manzana");
         manzana.setDescripcion("Manzanas");
-        manzana.setCategoria(frutas);
+        manzana.setCategoria(categoriaGenericRepositoryService.porId(frutas.getId()).get());
         subcategoriaGenericRepositoryService.guardar(manzana);
         //UNIDAD DE MEDIDA
         UnidadMedida kiloGramo = new UnidadMedida();
@@ -58,7 +58,7 @@ public class Test {
         manzanaGolden.setNombre("Manzana Golden");
         manzanaGolden.setDescripcion("Manzanas Golden a granel");
         manzanaGolden.setTipoProducto("Venta");
-        manzanaGolden.setSubcategoria(manzana);
+        manzanaGolden.setSubcategoria(subcategoriaGenericRepositoryService.porId(manzana.getId()).get());
         manzanaGolden.setPrecioUnitario(1.5D);
         manzanaGolden.setUnidadMedida(kiloGramo);
         manzanaGolden.setActivo(true);
@@ -66,7 +66,8 @@ public class Test {
         productoGenericRepositoryService.guardar(manzanaGolden);
         //LOTE
         Lote lote = new Lote();
-        lote.setProducto(manzanaGolden);
+        Producto producto = productoGenericRepositoryService.porId(manzanaGolden.getId()).get();
+        lote.setProducto(producto);
         lote.setCantidadInicial(50D);
         lote.setCantidadActual(50D);
         lote.setFechaEntrada(LocalDate.now());
@@ -85,19 +86,19 @@ public class Test {
         System.out.println(cliente.getNombre());
         Optional<Cliente> clienteGuardado = clienteGenericRepositoryService.porId(cliente.getId());
         //VENTA
-        Venta venta = new Venta();
+        /*Venta venta = new Venta();
         venta.setLote(lote);
         venta.setCantidad(1D);
         venta.setFechaVenta(LocalDateTime.now());
         venta.setPrecioVentaUnitario(1.5D);
         if(clienteGuardado.isPresent()){
             venta.setCliente(clienteGuardado.get());
-            System.out.println(clienteGuardado.get().getNombre());
+            System.out.println(clienteGuardado.get().getId());
         }
         else venta.setCliente(cliente);
         venta.setTipo("venta");
         ventaGenericRepositoryService.guardar(venta);
 
-        System.out.println(ventaGenericRepositoryService.listar());
+        System.out.println(ventaGenericRepositoryService.listar());*/
     }
 }

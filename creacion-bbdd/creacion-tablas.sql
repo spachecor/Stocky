@@ -71,7 +71,7 @@ create table producto(
     fecha_creacion date default current_timestamp not null,
     fecha_actualizacion datetime default current_timestamp on update current_timestamp,
     constraint producto_id_producto_pk primary key (id_producto),
-    constraint producto_id_proveedor_fk foreign key (id_proveedor) references proveedor (id_proveedor),
+    constraint producto_id_proveedor_fk foreign key (id_proveedor) references proveedor (id_proveedor) on delete restrict on update cascade,
     constraint producto_id_subcategoria_fk foreign key (id_subcategoria) references subcategoria (id_subcategoria) on delete restrict on update cascade,
     constraint producto_id_unidad_medida_fk foreign key (id_unidad_medida) references unidadMedida (id_unidad_medida) on delete restrict on update cascade
 );
@@ -191,7 +191,7 @@ create table cliente(
 create table venta(
 	id_venta int auto_increment,
     id_lote int not null,
-    cantidad int not null,
+    cantidad decimal(10,2) not null,
     fecha_venta timestamp default current_timestamp not null,
     precio_venta_unitario decimal(10,2) not null,
     id_cliente int not null,
@@ -236,12 +236,12 @@ create table factura(
 create table detalleFactura (
     id_detalle_factura int auto_increment,
     id_factura int not null,
-    id_producto int not null,
-    cantidad int not null,
+    id_lote int not null,
+    cantidad decimal(10, 2) not null,
     precio_unitario decimal(10, 2) not null,
     constraint detalleFactura_id_detalle_factura_pk primary key (id_detalle_factura),
     constraint detalleFactura_id_factura_fk foreign key (id_factura) references factura (id_factura) on delete cascade on update cascade,
-    constraint detalleFactura_id_producto_fk foreign key (id_producto) references producto (id_producto) on delete restrict on update cascade
+    constraint detalleFactura_id_lote_fk foreign key (id_lote) references lote (id_lote) on delete restrict on update cascade
 );
 
 create table metodoPago(
