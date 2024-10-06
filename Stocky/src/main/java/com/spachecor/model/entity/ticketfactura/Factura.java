@@ -13,7 +13,7 @@ public class Factura extends Entidad {
     @Column(name = "id_factura")
     private Integer id;
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
+    @JoinColumn(name = "id_persona")
     private Cliente cliente;
     @Column(name = "fecha_factura")
     private LocalDate fecha;

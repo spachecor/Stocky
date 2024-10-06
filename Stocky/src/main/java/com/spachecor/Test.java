@@ -1,9 +1,5 @@
 package com.spachecor;
 
-import com.spachecor.model.entity.compra.DetalleEntradaMercancia;
-import com.spachecor.model.entity.compra.DetalleOrdenCompra;
-import com.spachecor.model.entity.compra.EntradaMercancia;
-import com.spachecor.model.entity.compra.OrdenCompra;
 import com.spachecor.model.entity.inventario.*;
 import com.spachecor.model.entity.personas.Cliente;
 import com.spachecor.model.entity.personas.Proveedor;
@@ -86,7 +82,7 @@ public class Test {
         System.out.println(cliente.getNombre());
         Optional<Cliente> clienteGuardado = clienteGenericRepositoryService.porId(cliente.getId());
         //VENTA
-        /*Venta venta = new Venta();
+        Venta venta = new Venta();
         venta.setLote(lote);
         venta.setCantidad(1D);
         venta.setFechaVenta(LocalDateTime.now());
@@ -99,6 +95,6 @@ public class Test {
         venta.setTipo("venta");
         ventaGenericRepositoryService.guardar(venta);
 
-        System.out.println(ventaGenericRepositoryService.listar());*/
+        System.out.println(ventaGenericRepositoryService.listar());
     }
 }

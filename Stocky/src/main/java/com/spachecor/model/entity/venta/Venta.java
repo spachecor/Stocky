@@ -23,7 +23,7 @@ public class Venta extends Entidad {
     @Column(name = "precio_venta_unitario")
     private Double precioVentaUnitario;
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id_persona")
     private Cliente cliente;
     private String tipo;
     private String descripcion;

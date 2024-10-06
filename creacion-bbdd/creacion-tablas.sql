@@ -50,11 +50,10 @@ create table persona(
 );
 
 create table proveedor(/*proveedor pertenece a la sección 2: gestion de compras*/
-	id_proveedor int auto_increment,
-	id_persona int not null,
+	id_persona int auto_increment,
     nombre_empresa varchar(255) not null,
     tipo enum("Acreedor", "Proveedor") default "Proveedor" not null,
-    constraint proveedor_id_proveedor_pk primary key (id_proveedor),
+    constraint proveedor_id_proveedor_pk primary key (id_persona),
     constraint proveedor_id_persona_fk foreign key(id_persona) references persona (id_persona)
 );
 
@@ -71,7 +70,7 @@ create table producto(
     fecha_creacion date default current_timestamp not null,
     fecha_actualizacion datetime default current_timestamp on update current_timestamp,
     constraint producto_id_producto_pk primary key (id_producto),
-    constraint producto_id_proveedor_fk foreign key (id_proveedor) references proveedor (id_proveedor) on delete restrict on update cascade,
+    constraint producto_id_proveedor_fk foreign key (id_proveedor) references proveedor (id_persona) on delete restrict on update cascade,
     constraint producto_id_subcategoria_fk foreign key (id_subcategoria) references subcategoria (id_subcategoria) on delete restrict on update cascade,
     constraint producto_id_unidad_medida_fk foreign key (id_unidad_medida) references unidadMedida (id_unidad_medida) on delete restrict on update cascade
 );
@@ -136,7 +135,7 @@ create table ordenCompra (
     fecha_estimada_recepcion date not null,
     estado enum('pendiente', 'recibida', 'cancelada') default 'pendiente' not null,
     constraint ordenCompra_id_orden_compra_pk primary key (id_orden_compra),
-    constraint ordenCompra_id_proveedor_fk foreign key (id_proveedor) references proveedor (id_proveedor) on delete restrict on update cascade
+    constraint ordenCompra_id_proveedor_fk foreign key (id_proveedor) references proveedor (id_persona) on delete restrict on update cascade
 );
 
 -- El total de cada detalle de compra se obtendrá a través de una vista
@@ -182,9 +181,8 @@ create table detalleEntradaMercancia (
 */
 
 create table cliente(
-	id_cliente int auto_increment,
-    id_persona int not null,
-    constraint cliente_id_cliente_pk primary key (id_cliente),
+    id_persona int auto_increment,
+    constraint cliente_id_cliente_pk primary key (id_persona),
     constraint cliente_id_persona_fk foreign key (id_persona) references persona (id_persona)
 );
         
@@ -199,7 +197,7 @@ create table venta(
     descripcion text,
     constraint venta_id_venta_pk primary key (id_venta),
     constraint venta_id_lote_fk foreign key (id_lote) references lote (id_lote) on delete restrict on update cascade,
-    constraint venta_id_cliente_fk foreign key (id_cliente) references cliente (id_cliente) on delete restrict on update cascade
+    constraint venta_id_cliente_fk foreign key (id_cliente) references cliente (id_persona) on delete restrict on update cascade
 );
 
 -- SECCION TICKET - FACTURA
@@ -227,7 +225,7 @@ create table factura(
     id_descuento int not null,
     estado enum('emitida', 'pagada', 'cancelada'),
     constraint factura_id_factura_pk primary key (id_factura),
-    constraint factura_id_cliente_fk foreign key (id_cliente) references cliente (id_cliente) on delete restrict on update cascade,
+    constraint factura_id_cliente_fk foreign key (id_cliente) references cliente (id_persona) on delete restrict on update cascade,
     constraint factura_id_impuesto_fk foreign key (id_impuesto) references impuesto (id_impuesto) on delete restrict on update cascade,
     constraint factura_id_descuento_fk foreign key (id_descuento) references descuento (id_descuento) on delete restrict on update cascade
 );
@@ -260,7 +258,7 @@ create table Ticket (
     id_metodo_pago int not null,
     estado enum('abierto', 'cerrado', 'cancelado') default 'abierto' not null,
     constraint ticket_id_ticket_pk primary key (id_ticket),
-    constraint ticket_id_cliente_fk foreign key (id_cliente) references cliente (id_cliente) on delete restrict on update cascade,
+    constraint ticket_id_cliente_fk foreign key (id_cliente) references cliente (id_persona) on delete restrict on update cascade,
     constraint ticket_id_impuesto_fk foreign key (id_impuesto) references impuesto (id_impuesto) on delete restrict on update cascade,
     constraint ticket_id_descuento_fk foreign key (id_descuento) references descuento (id_descuento) on delete restrict on update cascade,
     constraint ticket_id_metodo_pago_fk foreign key (id_metodo_pago) references metodoPago (id_metodo_pago) on delete restrict on update cascade

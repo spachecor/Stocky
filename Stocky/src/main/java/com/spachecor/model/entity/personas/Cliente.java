@@ -4,23 +4,20 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cliente")
+@PrimaryKeyJoinColumn(name = "id_persona")
 public class Cliente extends Persona {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_cliente")
-    private Integer id;
 
     public Cliente(){}
 
     @Override
     public Integer getId() {
-        return this.id;
+        return super.getIdPersona();
     }
 
     @Override
     public String toString() {
         return "Cliente{" +
-                "id=" + id +
+                "id=" + super.getIdPersona() +
                 '}';
     }
 }

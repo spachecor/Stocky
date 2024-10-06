@@ -3,11 +3,9 @@ package com.spachecor.model.entity.personas;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "proveedor")
+@PrimaryKeyJoinColumn(name = "id_persona")
 public class Proveedor extends Persona{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_proveedor")
-    private Integer id;
     @Column(name = "nombre_empresa")
     private String nombreEmpresa;
     private String tipo;
@@ -17,7 +15,7 @@ public class Proveedor extends Persona{
     @Override
     public String toString() {
         return "Proveedor{" +
-                "id=" + id +
+                "id=" + super.getIdPersona() +
                 ", nombreEmpresa='" + nombreEmpresa + '\'' +
                 ", tipo='" + tipo + '\'' +
                 '}';
@@ -25,7 +23,7 @@ public class Proveedor extends Persona{
 
     @Override
     public Integer getId(){
-        return this.id;
+        return super.getIdPersona();
     }
 
     public String getNombreEmpresa() {
