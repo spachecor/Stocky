@@ -20,6 +20,11 @@
         <class>com.spachecor.model.entity.compra.DetalleEntradaMercancia</class>
         <class>com.spachecor.model.entity.personas.Cliente</class>
         <class>com.spachecor.model.entity.venta.Venta</class>
+        <class>com.spachecor.model.entity.ticketfactura.MetodoPago</class>
+        <class>com.spachecor.model.entity.ticketfactura.Descuento</class>
+        <class>com.spachecor.model.entity.ticketfactura.Impuesto</class>
+        <class>com.spachecor.model.entity.ticketfactura.Ticket</class>
+        <class>com.spachecor.model.entity.ticketfactura.DetalleTicket</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/stocky?serverTimezone=Europe/Madrid"/>

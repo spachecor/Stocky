@@ -1,15 +1,13 @@
 package com.spachecor.model.entity.ticketfactura;
 
 import com.spachecor.model.entity.Entidad;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "descuento")
 public class Descuento extends Entidad {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_descuento")
     private Integer id;
     private Integer porcentaje;

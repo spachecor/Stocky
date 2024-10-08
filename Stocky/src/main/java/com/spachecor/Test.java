@@ -3,6 +3,7 @@ package com.spachecor;
 import com.spachecor.model.entity.inventario.*;
 import com.spachecor.model.entity.personas.Cliente;
 import com.spachecor.model.entity.personas.Proveedor;
+import com.spachecor.model.entity.ticketfactura.*;
 import com.spachecor.model.entity.venta.Venta;
 import com.spachecor.model.services.repository.GenericRepositoryServiceImpl;
 import com.spachecor.model.util.JpaUtil;
@@ -13,7 +14,6 @@ import java.util.Optional;
 
 public class Test {
     public static void main(String[] args) {
-        //TODO hay problemas con la persistencia, no se si es que lo estoy gestionando mal aqui o si es que esta mal en las entidades
         GenericRepositoryServiceImpl<Proveedor> proveedorGenericRepositoryService = new GenericRepositoryServiceImpl<>(JpaUtil.getEntityManager(), Proveedor.class);
         GenericRepositoryServiceImpl<Categoria> categoriaGenericRepositoryService = new GenericRepositoryServiceImpl<>(JpaUtil.getEntityManager(), Categoria.class);
         GenericRepositoryServiceImpl<Subcategoria> subcategoriaGenericRepositoryService =  new GenericRepositoryServiceImpl<>(JpaUtil.getEntityManager(), Subcategoria.class);
@@ -21,7 +21,12 @@ public class Test {
         GenericRepositoryServiceImpl<Producto> productoGenericRepositoryService = new GenericRepositoryServiceImpl<>(JpaUtil.getEntityManager(), Producto.class);
         GenericRepositoryServiceImpl<Lote> loteGenericRepositoryService = new GenericRepositoryServiceImpl<>(JpaUtil.getEntityManager(), Lote.class);
         GenericRepositoryServiceImpl<Cliente> clienteGenericRepositoryService = new GenericRepositoryServiceImpl<>(JpaUtil.getEntityManager(), Cliente.class);
-        GenericRepositoryServiceImpl<Venta> ventaGenericRepositoryService = new GenericRepositoryServiceImpl<>(JpaUtil.getEntityManager(), Venta.class);
+        //GenericRepositoryServiceImpl<Venta> ventaGenericRepositoryService = new GenericRepositoryServiceImpl<>(JpaUtil.getEntityManager(), Venta.class);
+        GenericRepositoryServiceImpl<MetodoPago> metodoPagoGenericRepositoryService =  new GenericRepositoryServiceImpl<>(JpaUtil.getEntityManager(), MetodoPago.class);
+        GenericRepositoryServiceImpl<Descuento> descuentoGenericRepositoryService = new GenericRepositoryServiceImpl<>(JpaUtil.getEntityManager(), Descuento.class);
+        GenericRepositoryServiceImpl<Impuesto> impuestoGenericRepositoryService = new GenericRepositoryServiceImpl<>(JpaUtil.getEntityManager(), Impuesto.class);
+        GenericRepositoryServiceImpl<Ticket> ticketGenericRepositoryService = new GenericRepositoryServiceImpl<>(JpaUtil.getEntityManager(), Ticket.class);
+        GenericRepositoryServiceImpl<DetalleTicket> detalleTicketGenericRepositoryService = new GenericRepositoryServiceImpl<>(JpaUtil.getEntityManager(), DetalleTicket.class);
         //CATEGORIAS Y SUBCATEGORIAS
         Categoria frutas = new Categoria();
         frutas.setNombre("Frutas");
@@ -82,7 +87,7 @@ public class Test {
         System.out.println(cliente.getNombre());
         Optional<Cliente> clienteGuardado = clienteGenericRepositoryService.porId(cliente.getId());
         //VENTA
-        Venta venta = new Venta();
+        /*Venta venta = new Venta();
         venta.setLote(lote);
         venta.setCantidad(1D);
         venta.setFechaVenta(LocalDateTime.now());
@@ -95,6 +100,34 @@ public class Test {
         venta.setTipo("venta");
         ventaGenericRepositoryService.guardar(venta);
 
-        System.out.println(ventaGenericRepositoryService.listar());
+        System.out.println(ventaGenericRepositoryService.listar());*/
+        MetodoPago efectivo = new MetodoPago();
+        efectivo.setNombre("Efectivo");
+        metodoPagoGenericRepositoryService.guardar(efectivo);
+
+        Descuento descuento = new Descuento();
+        descuento.setPorcentaje(10);
+        descuentoGenericRepositoryService.guardar(descuento);
+
+        Impuesto impuesto = new Impuesto();
+        impuesto.setPorcentaje(21);
+        impuestoGenericRepositoryService.guardar(impuesto);
+
+        Ticket ticket = new Ticket();
+        ticket.setCliente(cliente);
+        ticket.setFechaTicket(LocalDate.now());
+        ticket.setDescuento(descuento);
+        ticket.setImpuesto(impuesto);
+        ticket.setMetodoPago(efectivo);
+        ticket.setEstado("abierto");
+        ticketGenericRepositoryService.guardar(ticket);
+
+        DetalleTicket detalleTicket = new DetalleTicket();
+        detalleTicket.setTicket(ticket);
+        detalleTicket.setLote(lote);
+        detalleTicket.setCantidad(5D);
+        detalleTicket.setPrecioUnitario(3D);
+        detalleTicketGenericRepositoryService.guardar(detalleTicket);
+
     }
 }

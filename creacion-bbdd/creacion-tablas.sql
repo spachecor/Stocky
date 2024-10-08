@@ -249,7 +249,7 @@ create table metodoPago(
 );
 
 /*El total del ticket se tomará con las vistas y haciendo join en la tabla detalle ticket. Tomar el total sin impuestos ni descuentos y el total final con todo aplicado*/
-create table Ticket (
+create table ticket (
     id_ticket int auto_increment,
     id_cliente int not null,
     fecha_ticket date not null,-- fecha en que se generó el ticket
@@ -268,12 +268,12 @@ create table Ticket (
 create table detalleTicket (
     id_detalle_ticket int auto_increment,
     id_ticket int not null,
-    id_producto int not null,
-    cantidad int not null,
+    id_lote int not null,
+    cantidad decimal(10,2) not null,
     precio_unitario decimal(10, 2) not null,
     constraint detalleTicket_id_detalle_ticket_pk primary key (id_detalle_ticket),
     constraint detalleTicket_id_ticket_fk foreign key (id_ticket) references ticket (id_ticket) on delete cascade on update cascade,
-    constraint detalleTicket_id_producto_fk foreign key (id_producto) references producto (id_producto) on delete restrict on update cascade
+    constraint detalleTicket_id_lote_fk foreign key (id_lote) references lote (id_lote) on delete restrict on update cascade
 );
 
 -- 4º GESTIÓN FINANCIERA --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
