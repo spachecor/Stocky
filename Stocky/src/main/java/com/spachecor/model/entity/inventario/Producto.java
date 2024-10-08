@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "producto")
-public class Producto extends Entidad{
+public class Producto extends Entidad<Producto>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_producto")
@@ -58,6 +58,14 @@ public class Producto extends Entidad{
                 ", fechaCreacion=" + fechaCreacion +
                 ", fechaActualizacion=" + fechaActualizacion +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Producto o) {
+        //2 productos son iguales cuando comparten nombre e instante de creacion
+        if(o.getNombre().equals(o.getNombre()) && o.getFechaCreacion().isEqual(o.getFechaCreacion())){
+            return 0;
+        }else return -1;
     }
 
     public Proveedor getProveedor() {

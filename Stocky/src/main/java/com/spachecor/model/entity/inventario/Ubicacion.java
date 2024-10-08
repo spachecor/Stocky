@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "ubicacion")
-public class Ubicacion extends Entidad {
+public class Ubicacion extends Entidad<Ubicacion> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ubicacion")
@@ -27,6 +27,12 @@ public class Ubicacion extends Entidad {
                 ", nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Ubicacion o) {
+        //2 ubicaciones son iguales si comparten el mismo nombre
+        return this.nombre.compareTo(o.nombre);
     }
 
     public String getNombre() {

@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "categoria")
-public class Categoria extends Entidad{
+public class Categoria extends Entidad<Categoria> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_categoria")
@@ -27,6 +27,12 @@ public class Categoria extends Entidad{
                 ", nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Categoria o) {
+        //2 categorias son iguales cuando ambas comparten el mismo nombre
+        return this.getNombre().compareTo(o.getNombre());
     }
 
     public String getNombre() {

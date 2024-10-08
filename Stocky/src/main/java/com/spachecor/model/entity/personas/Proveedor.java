@@ -26,6 +26,11 @@ public class Proveedor extends Persona{
         return super.getIdPersona();
     }
 
+    @Override
+    public int compareTo(Persona o) {
+        return super.compareTo(o);
+    }
+
     public String getNombreEmpresa() {
         return nombreEmpresa;
     }

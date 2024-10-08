@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 @Entity
 @Table(name = "lote")
-public class Lote extends Entidad{
+public class Lote extends Entidad<Lote>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_lote")
@@ -45,6 +45,14 @@ public class Lote extends Entidad{
                 ", fechaCaducidad=" + fechaCaducidad +
                 ", precioUnitarioCompra=" + precioUnitarioCompra +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Lote o) {
+        //2 lotes son iguales si comparten instante de creacion y producto
+        if(this.fechaEntrada.isEqual(o.fechaEntrada)&&this.getProducto().compareTo(o.getProducto())==0){
+            return 0;
+        }else return -1;
     }
 
     public Producto getProducto() {

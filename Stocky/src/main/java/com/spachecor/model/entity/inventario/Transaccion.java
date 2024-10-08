@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "transaccion")
-public class Transaccion extends Entidad {
+public class Transaccion extends Entidad<Transaccion> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_transaccion")
@@ -39,6 +39,13 @@ public class Transaccion extends Entidad {
                 ", lote=" + lote +
                 ", descripcion='" + descripcion + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Transaccion o) {
+        //2 transacciones son iguales si comparten instante de creacion
+        //TODO TERMINAR
+        return 0;
     }
 
     public String getTipoTransaccion() {

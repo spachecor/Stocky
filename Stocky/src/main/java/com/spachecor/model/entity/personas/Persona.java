@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "persona")
-public abstract class   Persona extends Entidad{
+public abstract class Persona extends Entidad<Persona>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_persona")
@@ -32,6 +32,12 @@ public abstract class   Persona extends Entidad{
                 ", contactoPrincipal='" + contactoPrincipal + '\'' +
                 ", activo=" + activo +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Persona o) {
+        //2 personas son iguales si tienen el mismo telefono, no puede haber 2 personas con el mismo
+        return this.getTelefono().compareTo(o.getTelefono());
     }
 
     public Integer getIdPersona(){

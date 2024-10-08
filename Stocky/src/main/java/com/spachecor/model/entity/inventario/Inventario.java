@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "inventario")
-public class Inventario extends Entidad {
+public class Inventario extends Entidad<Inventario> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_inventario")
@@ -43,6 +43,15 @@ public class Inventario extends Entidad {
                 ", fechaEntrada=" + fechaEntrada +
                 ", fechaActualizacion=" + fechaActualizacion +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Inventario o) {
+        //2 inventarios son iguales si comparten ubicacion y lote. Si se intentase meter productos del mismo lote donde
+        //ya hay otros productos, se fusionarian los inventarios para tener uno solo del mismo producto
+        if(this.getUbicacion().compareTo(o.getUbicacion()) == 0 && this.getLote().compareTo(o.getLote()) == 0){
+            return 0;
+        }else return -1;
     }
 
     public Lote getLote() {

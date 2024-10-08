@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "unidadMedida")
-public class UnidadMedida extends Entidad{
+public class UnidadMedida extends Entidad<UnidadMedida>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_unidad_medida")
@@ -27,6 +27,12 @@ public class UnidadMedida extends Entidad{
                 ", nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(UnidadMedida o) {
+        //2 unidades de medida son iguales cuando comparten el mismo nombre
+        return this.nombre.compareTo(o.getNombre());
     }
 
     public String getNombre() {

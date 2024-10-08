@@ -46,7 +46,8 @@ create table persona(
     email varchar(255),
     activo boolean default true,
     contacto_principal varchar(255),
-    constraint persona_id_persona_pk primary key (id_persona)
+    constraint persona_id_persona_pk primary key (id_persona),
+    constraint persona_telefono_uq unique(telefono)
 );
 
 create table proveedor(/*proveedor pertenece a la sección 2: gestion de compras*/
@@ -54,7 +55,8 @@ create table proveedor(/*proveedor pertenece a la sección 2: gestion de compras
     nombre_empresa varchar(255) not null,
     tipo enum("Acreedor", "Proveedor") default "Proveedor" not null,
     constraint proveedor_id_proveedor_pk primary key (id_persona),
-    constraint proveedor_id_persona_fk foreign key(id_persona) references persona (id_persona)
+    constraint proveedor_id_persona_fk foreign key(id_persona) references persona (id_persona),
+    constraint proveedor_nombre_empresa_uq unique(nombre_empresa)
 );
 
 create table producto(
@@ -67,12 +69,13 @@ create table producto(
     precio_unitario decimal(10,2),
     id_unidad_medida int not null,
     activo boolean default true not null,/*este campo define si el producto está activo o no. Los productos no se pueden eliminar si tienen registros vinculados, se pueden poner en inactivos, indicando que ya no están en venta*/
-    fecha_creacion date default current_timestamp not null,
+    fecha_creacion datetime default current_timestamp not null,
     fecha_actualizacion datetime default current_timestamp on update current_timestamp,
     constraint producto_id_producto_pk primary key (id_producto),
     constraint producto_id_proveedor_fk foreign key (id_proveedor) references proveedor (id_persona) on delete restrict on update cascade,
     constraint producto_id_subcategoria_fk foreign key (id_subcategoria) references subcategoria (id_subcategoria) on delete restrict on update cascade,
-    constraint producto_id_unidad_medida_fk foreign key (id_unidad_medida) references unidadMedida (id_unidad_medida) on delete restrict on update cascade
+    constraint producto_id_unidad_medida_fk foreign key (id_unidad_medida) references unidadMedida (id_unidad_medida) on delete restrict on update cascade,
+    constraint producto_fecha_creacion_uq unique(fecha_creacion)
 );
 
 create table lote(
@@ -80,11 +83,12 @@ create table lote(
     id_producto int not null,
     cantidad_inicial decimal(10,2) not null,/*cantidad inicial de productos contenidos en el lote recibido*/
     cantidad_actual decimal(10,2) not null,
-    fecha_entrada date not null,
+    fecha_entrada datetime not null,
     fecha_caducidad date,
     precio_compra_unitario decimal(10,2) not null,/*Precio al que se adquirió el producto del proveedor. Unitario, por cada unidad*/
     constraint lote_id_lote_pk primary key (id_lote),
-    constraint lote_id_producto_fk foreign key (id_producto) references producto (id_producto)
+    constraint lote_id_producto_fk foreign key (id_producto) references producto (id_producto),
+    constraint lote_fecha_entrada_uq unique(fecha_entrada)
 );
 
 create table ubicacion(
