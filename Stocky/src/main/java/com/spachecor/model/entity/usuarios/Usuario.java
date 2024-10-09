@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario extends Entidad{
+public class Usuario extends Entidad<Usuario> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
@@ -46,6 +46,12 @@ public class Usuario extends Entidad{
                 ", estado='" + estado + '\'' +
                 ", rol=" + rol.getNombre() +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Usuario o) {
+        //2 usuarios son iguales si comparten el nombre de usuario
+        return this.nombreUsuario.compareTo(o.getNombreUsuario());
     }
 
     public String getNombreUsuario() {

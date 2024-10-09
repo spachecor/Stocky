@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "persona")
-public abstract class Persona extends Entidad<Persona>{
+public abstract class Persona extends Entidad<Persona> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_persona")

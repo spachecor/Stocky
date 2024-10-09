@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "venta")
-public class Venta extends Entidad {
+public class Venta extends Entidad<Venta> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_venta")
@@ -47,6 +47,15 @@ public class Venta extends Entidad {
                 ", tipo='" + tipo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Venta o) {
+        //2 ventas son iguales si comparten el mismo lote, instante de venta y cliente(existe el cliente generic, no cliente)
+        if(this.getLote().compareTo(o.getLote()) == 0 && this.getFechaVenta().isEqual(o.getFechaVenta())
+                && this.getCliente().compareTo(o.getCliente()) == 0){
+            return 0;
+        }else return -1;
     }
 
     public Lote getLote() {

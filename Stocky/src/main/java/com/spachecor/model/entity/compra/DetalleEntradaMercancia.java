@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "detalleEntradaMercancia")
-public class DetalleEntradaMercancia extends Entidad {
+public class DetalleEntradaMercancia extends Entidad<DetalleEntradaMercancia> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_detalle_entrada_mercancia")
@@ -33,6 +33,14 @@ public class DetalleEntradaMercancia extends Entidad {
                 ", entradaMercancia=" + entradaMercancia +
                 ", transaccion=" + transaccion +
                 '}';
+    }
+
+    @Override
+    public int compareTo(DetalleEntradaMercancia o) {
+        //2 detalles de entrada de mercancia son iguales si comparten la misma entrada de mercancia y la misma transaccion
+        if(this.getEntradaMercancia().compareTo(o.getEntradaMercancia()) == 0 && this.getTransaccion().compareTo(o.getTransaccion()) == 0){
+            return 0;
+        }else return -1;
     }
 
     public Transaccion getTransaccion() {

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ordenCompra")
-public class OrdenCompra extends Entidad {
+public class OrdenCompra extends Entidad<OrdenCompra> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_orden_compra")
@@ -39,6 +39,12 @@ public class OrdenCompra extends Entidad {
                 ", fechaEstimadaRecepcion=" + fechaEstimadaRecepcion +
                 ", estado='" + estado + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(OrdenCompra o) {
+        //2 ordenes de compra son iguales si comparten el mismo instante de creacion
+        return this.getFechaOrden().compareTo(o.getFechaOrden());
     }
 
     public Proveedor getProveedor() {

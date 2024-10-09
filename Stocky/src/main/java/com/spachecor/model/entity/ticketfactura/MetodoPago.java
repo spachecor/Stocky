@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "metodoPago")
-public class MetodoPago extends Entidad {
+public class MetodoPago extends Entidad<MetodoPago> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_metodo_pago")
@@ -26,6 +26,12 @@ public class MetodoPago extends Entidad {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(MetodoPago o) {
+        //2 metodos de pago son iguales si sus nombres son iguales
+        return this.getNombre().compareTo(o.getNombre());
     }
 
     public String getNombre() {

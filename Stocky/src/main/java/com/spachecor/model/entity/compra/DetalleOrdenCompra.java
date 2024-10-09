@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "detalleOrdenCompra")
-public class DetalleOrdenCompra extends Entidad {
+public class DetalleOrdenCompra extends Entidad<DetalleOrdenCompra> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_detalle_orden_compra")
@@ -34,6 +34,15 @@ public class DetalleOrdenCompra extends Entidad {
                 ", producto=" + producto +
                 ", cantidad=" + cantidad +
                 '}';
+    }
+
+    @Override
+    public int compareTo(DetalleOrdenCompra o) {
+        //2 detalles de ordenes de compra son iguales si comparten la misma orden de compra y el mismo producto.
+        //no puede haber 2 productos repetidos en una misma orden de compra
+        if(this.getOrdenCompra().compareTo(o.getOrdenCompra()) == 0 && this.getProducto().compareTo(o.getProducto()) == 0){
+            return 0;
+        }else return -1;
     }
 
     public OrdenCompra getOrdenCompra() {

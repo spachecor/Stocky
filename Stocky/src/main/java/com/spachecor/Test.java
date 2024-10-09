@@ -79,7 +79,7 @@ public class Test {
         Cliente cliente = new Cliente();
         cliente.setNombre("Ana");
         cliente.setDireccion("Calle margarita 1");
-        cliente.setTelefono("+34696585474");
+        cliente.setTelefono("+34696585475");
         cliente.setEmail("ana@gmail.com");
         cliente.setContactoPrincipal("Ana");
         cliente.setActivo(true);
@@ -115,7 +115,7 @@ public class Test {
 
         Ticket ticket = new Ticket();
         ticket.setCliente(cliente);
-        ticket.setFechaTicket(LocalDate.now());
+        ticket.setFechaTicket(LocalDateTime.now());
         ticket.setDescuento(descuento);
         ticket.setImpuesto(impuesto);
         ticket.setMetodoPago(efectivo);

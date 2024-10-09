@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "impuesto")
-public class Impuesto extends Entidad {
+public class Impuesto extends Entidad<Impuesto> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_impuesto")
@@ -18,6 +18,21 @@ public class Impuesto extends Entidad {
     @Override
     public Integer getId() {
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "Impuesto{" +
+                "id=" + id +
+                ", porcentaje=" + porcentaje +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Impuesto o) {
+        //2 impuestos son iguales si comparten el porcentaje
+        return this.getPorcentaje().compareTo(o.getPorcentaje());
     }
 
     public Integer getPorcentaje() {

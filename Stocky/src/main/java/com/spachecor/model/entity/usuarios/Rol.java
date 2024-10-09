@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "rol")
-public class Rol extends Entidad {
+public class Rol extends Entidad<Rol> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_rol")
@@ -42,6 +42,12 @@ public class Rol extends Entidad {
                 ", descripcion='" + descripcion + '\'' +
                 ", permisos=" + permisos +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Rol o) {
+        //2 roles son iguales cuando coinciden sus nombres
+        return this.getNombre().compareTo(o.getNombre());
     }
 
     public String getNombre() {

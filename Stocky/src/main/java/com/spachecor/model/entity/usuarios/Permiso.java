@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "permiso")
-public class Permiso extends Entidad{
+public class Permiso extends Entidad<Permiso> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_permiso")
@@ -36,6 +36,12 @@ public class Permiso extends Entidad{
                 ", permiso='" + permiso + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Permiso o) {
+        //2 permisos son iguales si comparten el nombre del permiso
+        return this.getPermiso().compareTo(o.getPermiso());
     }
 
     public String getPermiso() {

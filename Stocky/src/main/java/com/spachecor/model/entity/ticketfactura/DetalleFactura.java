@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "detalleFactura")
-public class DetalleFactura extends Entidad {
+public class DetalleFactura extends Entidad<DetalleFactura> {
     @Id
     @Column(name = "id_detalle_factura")
     private Integer id;
@@ -21,6 +21,25 @@ public class DetalleFactura extends Entidad {
     private Double precioUnitario;
 
     public DetalleFactura() {}
+
+    @Override
+    public String toString() {
+        return "DetalleFactura{" +
+                "id=" + id +
+                ", factura=" + factura +
+                ", lote=" + lote +
+                ", cantidad=" + cantidad +
+                ", precioUnitario=" + precioUnitario +
+                '}';
+    }
+
+    @Override
+    public int compareTo(DetalleFactura o) {
+        //2 detalles de factura son iguales si comparten la misma factura y el mismo lote
+        if(this.getFactura().compareTo(o.getFactura()) == 0 && this.getLote().compareTo(o.getLote()) == 0){
+            return 0;
+        }else return -1;
+    }
 
     @Override
     public Integer getId() {

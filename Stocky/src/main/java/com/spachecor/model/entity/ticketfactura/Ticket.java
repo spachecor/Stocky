@@ -5,10 +5,11 @@ import com.spachecor.model.entity.personas.Cliente;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ticket")
-public class Ticket extends Entidad {
+public class Ticket extends Entidad<Ticket> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ticket")
@@ -17,7 +18,7 @@ public class Ticket extends Entidad {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
     @Column(name = "fecha_ticket")
-    private LocalDate fechaTicket;
+    private LocalDateTime fechaTicket;
     @ManyToOne
     @JoinColumn(name = "id_impuesto")
     private Impuesto impuesto;
@@ -49,6 +50,14 @@ public class Ticket extends Entidad {
                 '}';
     }
 
+    @Override
+    public int compareTo(Ticket o) {
+        //2 tickets son iguales si comparten instante de compra y cliente
+        if(this.getCliente().compareTo(o.getCliente()) == 0 && this.getFechaTicket().isEqual(o.getFechaTicket())){
+            return 0;
+        }else return -1;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }
@@ -57,11 +66,11 @@ public class Ticket extends Entidad {
         this.cliente = cliente;
     }
 
-    public LocalDate getFechaTicket() {
+    public LocalDateTime getFechaTicket() {
         return fechaTicket;
     }
 
-    public void setFechaTicket(LocalDate fechaTicket) {
+    public void setFechaTicket(LocalDateTime fechaTicket) {
         this.fechaTicket = fechaTicket;
     }
 

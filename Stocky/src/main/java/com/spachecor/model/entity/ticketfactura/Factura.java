@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "id_factura")
-public class Factura extends Entidad {
+public class Factura extends Entidad<Factura> {
     @Id
     @Column(name = "id_factura")
     private Integer id;
@@ -26,6 +26,26 @@ public class Factura extends Entidad {
     private String estado;
 
     public Factura() {}
+
+    @Override
+    public String toString() {
+        return "Factura{" +
+                "id=" + id +
+                ", cliente=" + cliente +
+                ", fecha=" + fecha +
+                ", impuesto=" + impuesto +
+                ", descuento=" + descuento +
+                ", estado='" + estado + '\'' +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Factura o) {
+        //2 facturas son iguales si comparten la misma fecha de factura y el mismo cliente
+        if(this.getFecha().isEqual(o.getFecha()) && this.getCliente().compareTo(o.getCliente()) == 0){
+            return 0;
+        }else return -1;
+    }
 
     @Override
     public Integer getId() {
