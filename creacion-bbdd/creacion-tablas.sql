@@ -139,7 +139,8 @@ create table ordenCompra (
     fecha_estimada_recepcion date not null,
     estado enum('pendiente', 'recibida', 'cancelada') default 'pendiente' not null,
     constraint ordenCompra_id_orden_compra_pk primary key (id_orden_compra),
-    constraint ordenCompra_id_proveedor_fk foreign key (id_proveedor) references proveedor (id_persona) on delete restrict on update cascade
+    constraint ordenCompra_id_proveedor_fk foreign key (id_proveedor) references proveedor (id_persona) on delete restrict on update cascade,
+    constraint ordenCompra_fecha_orden_uq unique (fecha_orden)
 );
 
 -- El total de cada detalle de compra se obtendrá a través de una vista
@@ -249,14 +250,15 @@ create table detalleFactura (
 create table metodoPago(
 	id_metodo_pago int auto_increment,
     nombre_metodo_pago varchar(50),
-    constraint metodoPago_id_metodo_pago_pk primary key (id_metodo_pago)
+    constraint metodoPago_id_metodo_pago_pk primary key (id_metodo_pago),
+    constraint metodoPago_nombre_metodo_pago_uq unique (nombre_metodo_pago)
 );
 
 /*El total del ticket se tomará con las vistas y haciendo join en la tabla detalle ticket. Tomar el total sin impuestos ni descuentos y el total final con todo aplicado*/
 create table ticket (
     id_ticket int auto_increment,
     id_cliente int not null,
-    fecha_ticket date not null,-- fecha en que se generó el ticket
+    fecha_ticket datetime not null,-- fecha en que se generó el ticket
     id_impuesto int not null,
     id_descuento int not null,
     id_metodo_pago int not null,
