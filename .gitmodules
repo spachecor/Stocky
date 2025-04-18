@@ -1,0 +1,45 @@
+[submodule "business-services/customer-stocky-service"]
+	path = business-services/customer-stocky-service
+	url = https://github.com/spachecor/customer-stocky-service
+[submodule "business-services/employee-stocky-service"]
+	path = business-services/employee-stocky-service
+	url = https://github.com/spachecor/employee-stocky-service.git
+[submodule "business-services/supplier-stocky-service"]
+	path = business-services/supplier-stocky-service
+	url = https://github.com/spachecor/supplier-stocky-service.git
+[submodule "business-services/product-stocky-service.git"]
+	path = business-services/product-stocky-service.git
+	url = https://github.com/spachecor/product-stocky-service.git
+[submodule "business-services/inventory-stocky-service"]
+	path = business-services/inventory-stocky-service
+	url = https://github.com/spachecor/inventory-stocky-service.git
+[submodule "business-services/purchase-stocky-service"]
+	path = business-services/purchase-stocky-service
+	url = https://github.com/spachecor/purchase-stocky-service.git
+[submodule "business-services/sale-stocky-service"]
+	path = business-services/sale-stocky-service
+	url = https://github.com/spachecor/sale-stocky-service.git
+[submodule "business-services/payment-stocky-service"]
+	path = business-services/payment-stocky-service
+	url = https://github.com/spachecor/payment-stocky-service.git
+[submodule "business-services/invoice-stocky-service"]
+	path = business-services/invoice-stocky-service
+	url = https://github.com/spachecor/invoice-stocky-service.git
+[submodule "business-services/issue-stocky-service"]
+	path = business-services/issue-stocky-service
+	url = https://github.com/spachecor/issue-stocky-service.git
+[submodule "communication-services/notification-stocky-service"]
+	path = communication-services/notification-stocky-service
+	url = https://github.com/spachecor/notification-stocky-service.git
+[submodule "core-services/gateway-stocky-service"]
+	path = core-services/gateway-stocky-service
+	url = https://github.com/spachecor/gateway-stocky-service.git
+[submodule "core-services/discovery-stocky-service"]
+	path = core-services/discovery-stocky-service
+	url = https://github.com/spachecor/discovery-stocky-service.git
+[submodule "core-services/message-stocky-broker"]
+	path = core-services/message-stocky-broker
+	url = https://github.com/spachecor/message-stocky-broker.git
+[submodule "identity-services/auth-stocky-service"]
+	path = identity-services/auth-stocky-service
+	url = https://github.com/spachecor/auth-stocky-service.git
